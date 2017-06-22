@@ -19,8 +19,6 @@ app.get('/', function(req, res){    //request, responce object
  	res.send('Please use2 /api/books or /api/genres'); //send to the browser
 });
 
-
-
 /***************
 GENRE
 ****************/

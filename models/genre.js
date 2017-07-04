@@ -1,7 +1,7 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-//Genre Schema - passin an json object
-var genreSchema = mongoose.Schema({
+// Genre Schema
+const genreSchema = mongoose.Schema({
 	name:{
 		type: String,
 		required: true
@@ -12,33 +12,30 @@ var genreSchema = mongoose.Schema({
 	}
 });
 
-//allow access to this object from outside
-var Genre = module.exports = mongoose.model('Genre', genreSchema);
+const Genre = module.exports = mongoose.model('Genre', genreSchema);
 
-//GET ALL genres method - access this from the route - 
-module.exports.getGenres = function(callback, limit){
-	Genre.find(callback).limit(limit); //find all or add a limit
+// Get Genres
+module.exports.getGenres = (callback, limit) => {
+	Genre.find(callback).limit(limit);
 }
 
-//ADD GENRE 
-module.exports.addGenre = function(genre, callback){ //the genre object is data from the form
+// Add Genre
+module.exports.addGenre = (genre, callback) => {
 	Genre.create(genre, callback);
 }
 
-//DELETE GENRE
-module.exports.removeGenre = function(id, callback){
-	var query = {_id: id};
-	Genre.remove(query, callback); //findById is a mongoose method
-}
-
-//UPDATE GENRE  
-module.exports.updateGenre = function(id, genre, options, callback){ //the genre object is data from the form
-	
+// Update Genre
+module.exports.updateGenre = (id, genre, options, callback) => {
 	var query = {_id: id};
 	var update = {
 		name: genre.name
 	}
-	Genre.findOneAndUpdate(query, update, options, callback);  //findOneAndUpdate is a mongo function
+	Genre.findOneAndUpdate(query, update, options, callback);
 }
 
 
+// Delete Genre
+module.exports.removeGenre = (id, callback) => {
+	var query = {_id: id};
+	Genre.remove(query, callback);
+}

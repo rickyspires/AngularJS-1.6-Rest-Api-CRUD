@@ -1,7 +1,7 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-//Book Schema - passin an json object
-var bookSchema = mongoose.Schema({
+// Book Schema
+const bookSchema = mongoose.Schema({
 	title:{
 		type: String,
 		required: true
@@ -35,33 +35,25 @@ var bookSchema = mongoose.Schema({
 	}
 });
 
-//allow access to this object from outside
-var Book = module.exports = mongoose.model('book', bookSchema);
+const Book = module.exports = mongoose.model('Book', bookSchema);
 
-//GET ALL Books method - access this from the route
-module.exports.getBooks = function(callback, limit){
-	Book.find(callback).limit(limit); //find all or add a limit
+// Get Books
+module.exports.getBooks = (callback, limit) => {
+	Book.find(callback).limit(limit);
 }
 
-//GET SINGLE Book method - access this from the route
-module.exports.getBookById = function(id, callback){
-	Book.findById(id, callback); //findById is a mongoose method
+// Get Book
+module.exports.getBookById = (id, callback) => {
+	Book.findById(id, callback);
 }
 
-//ADD BOOK
-module.exports.addBook = function(book, callback){
-	Book.create(book, callback); //findById is a mongoose method
+// Add Book
+module.exports.addBook = (book, callback) => {
+	Book.create(book, callback);
 }
 
-//DELETE BOOK
-module.exports.removeBook = function(id, callback){
-	var query = {_id: id};
-	Book.remove(query, callback); //findById is a mongoose method
-}
-
-//UPDATE GENRE  
-module.exports.updateGenre = function(id, genre, options, callback){ //the genre object is data from the form
-	
+// Update Book
+module.exports.updateBook = (id, book, options, callback) => {
 	var query = {_id: id};
 	var update = {
 		title: book.title,
@@ -73,5 +65,11 @@ module.exports.updateGenre = function(id, genre, options, callback){ //the genre
 		image_url: book.image_url,
 		buy_url: book.buy_url
 	}
-	Book.findOneAndUpdate(query, update, options, callback);  //findOneAndUpdate is a mongo function
+	Book.findOneAndUpdate(query, update, options, callback);
+}
+
+// Delete Book
+module.exports.removeBook = (id, callback) => {
+	var query = {_id: id};
+	Book.remove(query, callback);
 }
